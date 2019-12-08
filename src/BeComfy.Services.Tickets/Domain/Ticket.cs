@@ -17,6 +17,11 @@ namespace BeComfy.Services.Tickets.Domain
         public DateTime CreatedAt { get; }
         public DateTime UpdatedAt { get; private set; }
 
+        public Ticket()
+        {
+            
+        }
+
         public Ticket(Guid id, Guid flightId, Guid owner, decimal totalCost, IDictionary<SeatClass, int> seats)
         {
             Id = id;

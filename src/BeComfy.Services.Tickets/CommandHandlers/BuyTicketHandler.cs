@@ -22,9 +22,9 @@ namespace BeComfy.Services.Tickets.CommandHandlers
         public async Task HandleAsync(BuyTicket command, ICorrelationContext context)
         {
             // TODO : Customer validation -> call to Customers microservice (or personal CustomerId db) - for now Customer is always valid
-
-            // TODO : Calculate ticket price -> call to Pricing microservice - hardcode for now
             // TODO : Add discounts -> call to Discounts microservice
+            // TODO : Calculate ticket price -> call to Pricing microservice - hardcode for now
+
             var totalTicketPrice = 250M;
             
             // TODO : Validate customer wallet -> call to Customers microservice - for now customer always have enough money

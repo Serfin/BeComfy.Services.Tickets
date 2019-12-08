@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using BeComfy.Common.CqrsFlow;
+using BeComfy.Common.EFCore;
 using BeComfy.Common.Jaeger;
 using BeComfy.Common.RabbitMq;
+using BeComfy.Services.Tickets.EF;
 using BeComfy.Services.Tickets.Messages.Commands;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -37,6 +39,7 @@ namespace BeComfy.Services.Tickets
             
             services.AddJaeger();
             services.AddOpenTracing();
+            services.AddEFCoreContext<TicketsContext>();
 
             var builder = new ContainerBuilder();
             builder.Populate(services);
