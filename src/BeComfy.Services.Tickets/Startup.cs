@@ -9,8 +9,10 @@ using BeComfy.Common.CqrsFlow;
 using BeComfy.Common.EFCore;
 using BeComfy.Common.Jaeger;
 using BeComfy.Common.RabbitMq;
+using BeComfy.Common.RestEase;
 using BeComfy.Services.Tickets.EF;
 using BeComfy.Services.Tickets.Messages.Commands;
+using BeComfy.Services.Tickets.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -40,6 +42,9 @@ namespace BeComfy.Services.Tickets
             services.AddJaeger();
             services.AddOpenTracing();
             services.AddEFCoreContext<TicketsContext>();
+            
+            // Hardcoded addresses for now
+            services.RegisterRestClientFor<IFlightsService>("http://localhost:5005");
 
             var builder = new ContainerBuilder();
             builder.Populate(services);
