@@ -4,14 +4,16 @@ using BeComfy.Services.Tickets.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BeComfy.Services.Tickets.Migrations
 {
     [DbContext(typeof(TicketsContext))]
-    partial class TicketsContextModelSnapshot : ModelSnapshot
+    [Migration("20200106181127_AddedCreationTimeColumn")]
+    partial class AddedCreationTimeColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

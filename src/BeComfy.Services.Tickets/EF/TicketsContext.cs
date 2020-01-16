@@ -22,6 +22,10 @@ namespace BeComfy.Services.Tickets.EF
                 .HasKey(x => x.Id);
 
             modelBuilder.Entity<Ticket>()
+                .Property(x => x.CreatedAt)
+                .HasColumnType("datetime2");
+
+            modelBuilder.Entity<Ticket>()
                 .Property(x => x.TotalCost)
                 .HasColumnType("money");
             

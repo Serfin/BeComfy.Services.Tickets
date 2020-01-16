@@ -6,7 +6,6 @@ using BeComfy.Common.Types.Exceptions;
 
 namespace BeComfy.Services.Tickets.Domain
 {
-    // TODO : Add domain validation
     public class Ticket
     {
         public Guid Id { get; }
@@ -29,18 +28,29 @@ namespace BeComfy.Services.Tickets.Domain
             SetOwner(owner);
             SetTotalCost(totalCost);
             SetSeatClass(seats);
-            CreatedAt = DateTime.UtcNow;
-            UpdatedAt = DateTime.MinValue;
+            CreatedAt = DateTime.Now;
         }
 
         private void SetFlightId(Guid flightId)
         {
+            if (flightId == null || flightId == Guid.Empty)
+            {
+                throw new BeComfyDomainException($"{nameof(flightId)} cannot be null or empty");
+            }
+
             FlightId = flightId;
+            SetUpdateDate();
         }
 
         private void SetOwner(Guid owner)
         {
+            if (owner == null || owner == Guid.Empty)
+            {
+                throw new BeComfyDomainException($"{nameof(owner)} cannot be null or empty");
+            }
+
             Owner = owner;
+            SetUpdateDate();
         }
 
         private void SetTotalCost(decimal totalCost)
@@ -51,6 +61,7 @@ namespace BeComfy.Services.Tickets.Domain
             }
             
             TotalCost = totalCost;
+            SetUpdateDate();
         }
 
         private void SetSeatClass(IDictionary<SeatClass, int> seats)
@@ -68,6 +79,7 @@ namespace BeComfy.Services.Tickets.Domain
             }
 
             Seats = seats;
+            SetUpdateDate();
         }
 
         private void SetUpdateDate()

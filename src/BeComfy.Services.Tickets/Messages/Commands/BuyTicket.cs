@@ -11,7 +11,6 @@ namespace BeComfy.Services.Tickets.Messages.Commands
     {
         public Guid Id { get; }
         public Guid FlightId { get; }
-        public Guid CustomerId { get; }
         public IDictionary<SeatClass, int> Seats { get; }
         
         [JsonConstructor]
@@ -19,7 +18,6 @@ namespace BeComfy.Services.Tickets.Messages.Commands
         {
             Id = id;
             FlightId = flightId;
-            CustomerId = customerId;
             Seats = seats;
         }   
     }

@@ -48,18 +48,24 @@ namespace BeComfy.Services.Tickets.CommandHandlers
             var totalTicketPrice = 0M;
             foreach (var (seatClass, count) in command.Seats)
             {
-                if (seatClass is SeatClass.Economic)
-                {
-                    totalTicketPrice += count * PriceForEconomic;
-                }
-                else
-                {
-                    totalTicketPrice += count * PriceForBusiness;
+                switch (seatClass) {
+                    case SeatClass.Economic:
+                        totalTicketPrice += count * PriceForEconomic;
+                        break;
+                    
+                    case SeatClass.Business:
+                        totalTicketPrice += count * PriceForBusiness;
+                        break;
+                    
+                    default:
+                        throw new BeComfyException("Invalid seat class");
+
                 }
             }
             
             // TODO : Validate customer wallet -> call to Customers microservice - for now customer always have enough money, well, right now he doesn't even have wallet 
-            var ticket = new Ticket(command.Id, command.FlightId, command.CustomerId, totalTicketPrice, command.Seats);
+            var ticket = new Ticket(command.Id, command.FlightId, context.UserId, 
+                totalTicketPrice, command.Seats);
 
             await _ticketsRepository.AddAsync(ticket);
             await _busPublisher.PublishAsync(new TicketBought(ticket.Id, ticket.Owner, ticket.Seats,
