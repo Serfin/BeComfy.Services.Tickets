@@ -32,8 +32,11 @@ namespace BeComfy.Services.Tickets.CommandHandlers
 
         public async Task HandleAsync(BuyTicket command, ICorrelationContext context)
         {
-            // TODO : Customer validation -> call to Customers microservice (or personal CustomerId db) - for now Customer is always valid
             var customer = await _customersService.GetAsync(command.CustomerId);
+            if (customer is null)
+            {
+                throw new BeComfyException($"Customer with id: {customer.Id} does not exist");
+            }
             
             // TODO : Add discounts -> call to Discounts microservice
 
@@ -66,14 +69,17 @@ namespace BeComfy.Services.Tickets.CommandHandlers
 
                 }
             }
+
+            if (customer.Balance - totalTicketPrice < 0)
+            {
+                throw new BeComfyException($"Customer with id: {customer.Id} does not have enough money to buy ticket");
+            }
             
-            // TODO : Validate customer wallet -> call to Customers microservice - for now customer always have enough money, well, right now he doesn't even have wallet 
-            var ticket = new Ticket(command.Id, command.FlightId, context.UserId, 
+            var ticket = new Ticket(command.Id, command.FlightId, customer.Id, 
                 totalTicketPrice, command.Seats);
 
             await _ticketsRepository.AddAsync(ticket);
-            await _busPublisher.PublishAsync(new TicketBought(ticket.Id, ticket.Owner, ticket.Seats,
-                    totalTicketPrice), context);
+            await _busPublisher.PublishAsync(new TicketBought(ticket.Id, ticket.Owner, ticket.TotalCost), context);
         }
     }
 }
