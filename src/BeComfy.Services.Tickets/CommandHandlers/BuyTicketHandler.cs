@@ -16,21 +16,25 @@ namespace BeComfy.Services.Tickets.CommandHandlers
         private readonly ITicketsRepository _ticketsRepository;
         private readonly IBusPublisher _busPublisher;
         private readonly IFlightsService _flightsService;
+        private readonly ICustomersService _customersService;
 
         private const decimal PriceForEconomic = 255M;
         private const decimal PriceForBusiness = 675M;
 
         public BuyTicketHandler(ITicketsRepository ticketsRepository, IBusPublisher busPublisher,
-            IFlightsService flightsService)
+            IFlightsService flightsService, ICustomersService customersService)
         {
             _ticketsRepository = ticketsRepository;
             _busPublisher = busPublisher;
             _flightsService = flightsService;
+            _customersService = customersService;
         }
 
         public async Task HandleAsync(BuyTicket command, ICorrelationContext context)
         {
             // TODO : Customer validation -> call to Customers microservice (or personal CustomerId db) - for now Customer is always valid
+            var customer = await _customersService.GetAsync(command.CustomerId);
+            
             // TODO : Add discounts -> call to Discounts microservice
 
             var flight = await _flightsService.GetAsync(command.FlightId);

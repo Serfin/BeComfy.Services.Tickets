@@ -45,6 +45,7 @@ namespace BeComfy.Services.Tickets
             
             // Hardcoded addresses for now
             services.RegisterRestClientFor<IFlightsService>("http://localhost:5005");
+            services.RegisterRestClientFor<ICustomersService>("http://localhost:5025");
 
             var builder = new ContainerBuilder();
             builder.Populate(services);
