@@ -44,9 +44,9 @@ namespace BeComfy.Services.Tickets.Domain
 
         private void SetOwner(Guid owner)
         {
-            if (owner == null || owner == Guid.Empty)
+            if (owner == Guid.Empty)
             {
-                throw new BeComfyDomainException($"{nameof(owner)} cannot be null or empty");
+                throw new BeComfyDomainException($"{nameof(owner)} cannot be empty");
             }
 
             Owner = owner;

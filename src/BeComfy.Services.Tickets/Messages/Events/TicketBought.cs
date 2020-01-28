@@ -9,16 +9,14 @@ namespace BeComfy.Services.Tickets.Messages.Events
     public class TicketBought : IEvent
     {
         public Guid Id { get; }
-        public Guid OwnerData { get; }
-        public IDictionary<SeatClass, int> Seats { get;}
+        public Guid CustomerId { get; }
         public decimal TotalPrice { get; }
 
         [JsonConstructor]
-        public TicketBought(Guid id, Guid ownerData, IDictionary<SeatClass, int> seats, decimal totalPrice)
+        public TicketBought(Guid id, Guid customerId, decimal totalPrice)
         {
             Id = id;
-            OwnerData = ownerData;
-            Seats = seats;
+            CustomerId = CustomerId;
             TotalPrice = totalPrice;
         }
     }
