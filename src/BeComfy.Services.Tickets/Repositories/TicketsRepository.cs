@@ -34,7 +34,7 @@ namespace BeComfy.Services.Tickets.Repositories
 
             if (ticket is null)
             {
-                throw new BeComfyException($"Ticket with id: {ticketId} does not exist.");
+                throw new BeComfyException("cannot_delete_ticket", $"Ticket with id: {ticketId} does not exist.");
             }
 
             _context.Tickets.Remove(ticket);

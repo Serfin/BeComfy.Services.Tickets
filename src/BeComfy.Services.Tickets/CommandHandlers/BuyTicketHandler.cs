@@ -35,7 +35,7 @@ namespace BeComfy.Services.Tickets.CommandHandlers
             var customer = await _customersService.GetAsync(command.CustomerId);
             if (customer is null)
             {
-                throw new BeComfyException($"Customer with id: {customer.Id} does not exist");
+                throw new BeComfyException("cannot_buy_ticket", $"Customer with id: {customer.Id} does not exist");
             }
             
             // TODO : Add discounts -> call to Discounts microservice
@@ -43,12 +43,12 @@ namespace BeComfy.Services.Tickets.CommandHandlers
             var flight = await _flightsService.GetAsync(command.FlightId);
             if (flight is null)
             {
-                throw new BeComfyException($"Flight with id: {command.FlightId} does not exist");
+                throw new BeComfyException("cannot_buy_ticket", $"Flight with id: {command.FlightId} does not exist");
             }
 
             if (flight.FlightStatus != FlightStatus.Continues)
             {
-                throw new BeComfyException($"Flight has status: {flight.FlightStatus} which is invalid to buy ticket");
+                throw new BeComfyException("cannot_buy_ticket", $"Flight has status: {flight.FlightStatus} which is invalid to buy ticket");
             }
             
             // TODO : Calculate ticket price -> call to Pricing microservice - hardcode for now
@@ -65,14 +65,14 @@ namespace BeComfy.Services.Tickets.CommandHandlers
                         break;
                     
                     default:
-                        throw new BeComfyException("Invalid seat class");
+                        throw new BeComfyException("cannot_buy_ticket", "Invalid seat class");
 
                 }
             }
 
             if (customer.Balance - totalTicketPrice < 0)
             {
-                throw new BeComfyException($"Customer with id: {customer.Id} does not have enough money to buy ticket");
+                throw new BeComfyException("cannot_buy_ticket", $"Customer with id: {customer.Id} does not have enough money to buy ticket");
             }
             
             var ticket = new Ticket(command.Id, command.FlightId, customer.Id, 
