@@ -12,6 +12,7 @@ using BeComfy.Common.RabbitMq;
 using BeComfy.Common.RestEase;
 using BeComfy.Services.Tickets.EF;
 using BeComfy.Services.Tickets.Messages.Commands;
+using BeComfy.Services.Tickets.Messages.Events;
 using BeComfy.Services.Tickets.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -70,7 +71,8 @@ namespace BeComfy.Services.Tickets
             app.UseRouting();
 
             app.UseRabbitMq()
-                .SubscribeCommand<BuyTicket>();
+                .SubscribeCommand<BuyTicket>(
+                    onError: (cmd, ex) => new BuyTicketRejected(cmd.Id, ex.Code, ex.Message));
             
             app.UseEndpoints(endpoints =>
             {
