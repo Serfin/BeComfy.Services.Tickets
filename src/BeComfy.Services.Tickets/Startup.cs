@@ -45,8 +45,8 @@ namespace BeComfy.Services.Tickets
             services.AddEFCoreContext<TicketsContext>();
             
             // Hardcoded addresses for now
-            services.RegisterRestClientFor<IFlightsService>("http://localhost:5005");
-            services.RegisterRestClientFor<ICustomersService>("http://localhost:5025");
+            services.RegisterRestClientFor<IFlightsService>("becomfy-services-flights");
+            services.RegisterRestClientFor<ICustomersService>("becomfy-services-customers");
 
             var builder = new ContainerBuilder();
             builder.Populate(services);
