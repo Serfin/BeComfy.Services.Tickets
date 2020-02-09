@@ -35,7 +35,7 @@ namespace BeComfy.Services.Tickets.CommandHandlers
             var customer = await _customersService.GetAsync(command.CustomerId);
             if (customer is null)
             {
-                throw new BeComfyException("cannot_buy_ticket", $"Customer with id: {customer.Id} does not exist");
+                throw new BeComfyException("cannot_buy_ticket", $"Customer with id: {command.CustomerId} does not exist");
             }
             
             // TODO : Add discounts -> call to Discounts microservice
@@ -66,7 +66,6 @@ namespace BeComfy.Services.Tickets.CommandHandlers
                     
                     default:
                         throw new BeComfyException("cannot_buy_ticket", "Invalid seat class");
-
                 }
             }
 

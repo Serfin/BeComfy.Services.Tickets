@@ -70,7 +70,7 @@ namespace BeComfy.Services.Tickets
 
             app.UseRabbitMq()
                 .SubscribeCommand<BuyTicket>(
-                    onError: (cmd, ex) => new BuyTicketRejected(cmd.Id, ex.Code, ex.Message));
+                    onError: (cmd, ex) => new BuyTicketRejected(cmd.Id, cmd.CustomerId, ex.Code, ex.Message));
             
             app.UseEndpoints(endpoints =>
             {
