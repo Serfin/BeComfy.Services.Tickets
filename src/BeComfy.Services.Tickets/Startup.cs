@@ -6,8 +6,10 @@ using BeComfy.Common.Consul;
 using BeComfy.Common.CqrsFlow;
 using BeComfy.Common.EFCore;
 using BeComfy.Common.Jaeger;
+using BeComfy.Common.Mongo;
 using BeComfy.Common.RabbitMq;
 using BeComfy.Common.RestEase;
+using BeComfy.Services.Tickets.Domain;
 using BeComfy.Services.Tickets.EF;
 using BeComfy.Services.Tickets.Messages.Commands;
 using BeComfy.Services.Tickets.Messages.Events;
@@ -39,6 +41,8 @@ namespace BeComfy.Services.Tickets
             services.AddJaeger();
             services.AddOpenTracing();
             services.AddConsul();
+            services.AddMongo();
+            services.AddMongoRepository<Ticket>("Tickets");
             services.AddEFCoreContext<TicketsContext>();
             
             // Hardcoded addresses for now

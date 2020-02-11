@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BeComfy.Services.Tickets.Repositories
 {
-    public class TicketsRepository : ITicketsRepository
+    public class TicketsRepository// : ITicketsRepository
     {
         private readonly TicketsContext _context;
 
