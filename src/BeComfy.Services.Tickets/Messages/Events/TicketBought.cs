@@ -8,13 +8,15 @@ namespace BeComfy.Services.Tickets.Messages.Events
     {
         public Guid Id { get; }
         public Guid CustomerId { get; }
+        public Guid FlightId { get; }
         public decimal TotalPrice { get; }
 
         [JsonConstructor]
-        public TicketBought(Guid id, Guid customerId, decimal totalPrice)
+        public TicketBought(Guid id, Guid customerId, Guid flightId, decimal totalPrice)
         {
             Id = id;
             CustomerId = customerId;
+            FlightId = flightId;
             TotalPrice = totalPrice;
         }
     }
