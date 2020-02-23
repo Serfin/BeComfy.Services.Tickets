@@ -30,8 +30,8 @@ namespace BeComfy.Services.Tickets.Domain
             Id = id;
             SetFlightId(flightId);
             SetOwner(owner);
-            SetTotalCost(totalCost);
             SetSeatClass(seats);
+            SetTotalCost(totalCost);
             CreatedAt = DateTime.Now;
         }
 
@@ -39,7 +39,7 @@ namespace BeComfy.Services.Tickets.Domain
         {
             if (flightId == null || flightId == Guid.Empty)
             {
-                throw new BeComfyDomainException($"{nameof(flightId)} cannot be null or empty");
+                throw new BeComfyException("cannot_buy_ticket", $"{nameof(flightId)} cannot be null or empty");
             }
 
             FlightId = flightId;
@@ -50,7 +50,7 @@ namespace BeComfy.Services.Tickets.Domain
         {
             if (owner == Guid.Empty)
             {
-                throw new BeComfyDomainException($"{nameof(owner)} cannot be empty");
+                throw new BeComfyException("cannot_buy_ticket", $"{nameof(owner)} cannot be empty");
             }
 
             Owner = owner;
@@ -61,7 +61,7 @@ namespace BeComfy.Services.Tickets.Domain
         {
             if (totalCost <= 0)
             {
-                throw new BeComfyDomainException($"{nameof(totalCost)} cannot be less or equal to 0");
+                throw new BeComfyException("cannot_buy_ticket", $"{nameof(totalCost)} cannot be less or equal to 0");
             }
             
             TotalCost = totalCost;
@@ -72,14 +72,14 @@ namespace BeComfy.Services.Tickets.Domain
         {
             if (seats is null)
             {
-                throw new BeComfyDomainException($"{nameof(seats)} cannot be null");
+                throw new BeComfyException("cannot_buy_ticket", $"{nameof(seats)} cannot be null");
             }
 
             var seatCount = seats.Sum(seat => seat.Value);
 
             if (seatCount <= 0)
             {
-                throw new BeComfyDomainException("Total count of seats cannot be less or equal to 0");
+                throw new BeComfyException("cannot_buy_ticket", "Total count of seats cannot be less or equal to 0");
             }
 
             Seats = seats;

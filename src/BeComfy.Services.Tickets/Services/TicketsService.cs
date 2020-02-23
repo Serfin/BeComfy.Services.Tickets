@@ -64,7 +64,8 @@ namespace BeComfy.Services.Tickets.Services
                     totalTicketPrice, command.Seats);
 
                 await _ticketsRepository.AddAsync(ticket);
-                await _busPublisher.PublishAsync(new TicketBought(ticket.Id, ticket.Owner, ticket.FlightId, ticket.TotalCost), context);        
+                await _busPublisher.PublishAsync(new TicketBought(ticket.Id, ticket.Owner, ticket.FlightId, 
+                    ticket.TotalCost, ticket.Seats), context);        
             }
             else
             {
