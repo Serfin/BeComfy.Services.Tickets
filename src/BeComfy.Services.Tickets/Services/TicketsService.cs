@@ -69,7 +69,7 @@ namespace BeComfy.Services.Tickets.Services
             }
             else
             {
-                throw new BeComfyException("cannot_buy_ticket", "Invalid seat count");             
+                throw new BeComfyException("cannot_buy_ticket", "Flight has not enough seats to buy");             
             }
         }
 
