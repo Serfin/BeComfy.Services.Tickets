@@ -1,3 +1,4 @@
+using BeComfy.Common.CqrsFlow.Dispatcher;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BeComfy.Services.Tickets.Controllers
