@@ -1,3 +1,4 @@
+using BeComfy.Logging.Elk;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
@@ -12,6 +13,7 @@ namespace BeComfy.Services.Tickets
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+                .UseStartup<Startup>()
+                .UseComfyLogger();
     }
 }

@@ -6,6 +6,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\BeComfy.Common\src\BeComfy.Common\BeComfy.Common.csproj" />
+      <ProjectReference Include="..\..\..\BeComfy.Common\src\BeComfy.Logging.Elk\BeComfy.Logging.Elk.csproj" />
     </ItemGroup>
 
     <ItemGroup>
