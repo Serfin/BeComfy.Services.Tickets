@@ -34,13 +34,13 @@ namespace BeComfy.Services.Tickets.Services
 
         public async Task BuyTicket(BuyTicket command, ICorrelationContext context)
         {
-            Customer customer = await LoadCustomer(command.CustomerId);
+            var customer = await LoadCustomer(command.CustomerId);
             if (customer is null)
             {
                 throw new BeComfyException("cannot_buy_ticket", $"Customer with id: {command.CustomerId} does not exist");
             }
 
-            Flight flight = await LoadFlight(command.FlightId);
+            var flight = await LoadFlight(command.FlightId);
             if (flight is null)
             {
                 throw new BeComfyException("cannot_buy_ticket", $"Flight with id: {command.FlightId} does not exist");

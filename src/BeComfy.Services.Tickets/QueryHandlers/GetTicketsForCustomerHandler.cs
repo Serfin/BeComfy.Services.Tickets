@@ -7,12 +7,12 @@ using BeComfy.Services.Tickets.Repositories;
 
 namespace BeComfy.Services.Tickets.QueryHandlers
 {
-    public class GetTickersForCustomerHandler
+    public class GetTicketsForCustomerHandler
         : IQueryHandler<GetTicketsForCustomer, IEnumerable<TicketDto>>
     {
         private readonly ITicketsRepository _ticketsRepository;
 
-        public GetTickersForCustomerHandler(ITicketsRepository ticketsRepository)
+        public GetTicketsForCustomerHandler(ITicketsRepository ticketsRepository)
         {
             _ticketsRepository = ticketsRepository;
         }
